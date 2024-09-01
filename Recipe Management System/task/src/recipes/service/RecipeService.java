@@ -1,30 +1,39 @@
 package recipes.service;
 
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import recipes.entity.Recipe;
 import recipes.exception.RecipeNotFoundException;
 import recipes.model.IdModel;
 import recipes.model.RecipeModel;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.atomic.AtomicLong;
+import recipes.repository.RecipeRepository;
+import recipes.service.mapper.RecipeMapper;
 
 @Service
+@RequiredArgsConstructor
+@Slf4j
 public class RecipeService {
 
-    private final Map<Long,RecipeModel> recipes = new HashMap<>();
-    private final AtomicLong counter = new AtomicLong();
+    private final RecipeRepository recipeRepository;
+    private final RecipeMapper recipeMapper;
 
     public IdModel addRecipe(RecipeModel recipe) {
-        var key = counter.incrementAndGet();
-        recipes.put(key, recipe);
-        return new IdModel(key);
+        log.debug("Adding recipe: {}", recipe);
+        Recipe saved = recipeRepository.save(recipeMapper.toEntity(recipe));
+        return new IdModel(saved.getId());
     }
 
     public RecipeModel getRecipe(Long id) {
-        if (recipes.get(id) == null) {
+        return recipeRepository.findById(id)
+                .map(recipeMapper::toModel)
+                .orElseThrow(() -> new RecipeNotFoundException(id));
+    }
+
+    public void deleteRecipe(Long id) {
+        if (!recipeRepository.existsById(id)) {
             throw new RecipeNotFoundException(id);
         }
-        return recipes.get(id);
+        recipeRepository.deleteById(id);
     }
 }
