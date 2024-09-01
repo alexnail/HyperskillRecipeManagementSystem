@@ -12,6 +12,15 @@ files:
   - name: test/RecipesApplicationTest.java
     visible: false
     learner_created: false
+  - name: src/recipes/controller/RecipeController.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/service/RecipeService.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/model/RecipeModel.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/projects/180/stages/918/implement#comment
 status: Unchecked
 record: -1
