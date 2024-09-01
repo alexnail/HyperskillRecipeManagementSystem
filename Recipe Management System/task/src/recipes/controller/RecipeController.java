@@ -1,7 +1,11 @@
 package recipes.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import recipes.exception.RecipeNotFoundException;
+import recipes.model.IdModel;
 import recipes.model.RecipeModel;
 import recipes.service.RecipeService;
 
@@ -12,13 +16,18 @@ public class RecipeController {
 
     private RecipeService recipeService;
 
-    @PostMapping
-    public void addRecipe(@RequestBody RecipeModel recipe) {
-        recipeService.addRecipe(recipe);
+    @PostMapping("/new")
+    public IdModel addRecipe(@RequestBody RecipeModel recipe) {
+        return recipeService.addRecipe(recipe);
     }
 
-    @GetMapping
-    public RecipeModel getRecipe() {
-        return recipeService.getRecipe();
+    @GetMapping("/{id}")
+    public RecipeModel getRecipe(@PathVariable("id") Long id) {
+        return recipeService.getRecipe(id);
+    }
+
+    @ExceptionHandler(RecipeNotFoundException.class)
+    public ResponseEntity recipeNotFound() {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
