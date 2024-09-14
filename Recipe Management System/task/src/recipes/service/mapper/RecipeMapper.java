@@ -10,6 +10,8 @@ public class RecipeMapper {
         Recipe entity = new Recipe();
         entity.setName(recipe.getName());
         entity.setDescription(recipe.getDescription());
+        entity.setCategory(recipe.getCategory());
+        //entity.setDate(recipe.getDate());
         entity.setIngredients(recipe.getIngredients());
         entity.setDirections(recipe.getDirections());
         return entity;
@@ -19,6 +21,8 @@ public class RecipeMapper {
         RecipeModel model = new RecipeModel();
         model.setName(recipe.getName());
         model.setDescription(recipe.getDescription());
+        model.setCategory(recipe.getCategory());
+        model.setDate(recipe.getDate());
         model.setIngredients(recipe.getIngredients());
         model.setDirections(recipe.getDirections());
         return model;

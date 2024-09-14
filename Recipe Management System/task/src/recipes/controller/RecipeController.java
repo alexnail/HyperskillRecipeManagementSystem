@@ -10,6 +10,8 @@ import recipes.model.IdModel;
 import recipes.model.RecipeModel;
 import recipes.service.RecipeService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/recipe")
 @AllArgsConstructor
@@ -33,8 +35,25 @@ public class RecipeController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity updateRecipe(@PathVariable("id") Long id, @Valid @RequestBody RecipeModel recipe) {
+        recipeService.updateRecipe(id, recipe);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/search/")
+    public List<RecipeModel> searchRecipe(@RequestParam(value = "name", required = false) String name,
+                                          @RequestParam(value = "category", required = false) String category) {
+        return recipeService.search(name, category);
+    }
+
     @ExceptionHandler(RecipeNotFoundException.class)
     public ResponseEntity recipeNotFound() {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity illegalArgumentException() {
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

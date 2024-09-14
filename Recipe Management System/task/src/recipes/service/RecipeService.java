@@ -10,6 +10,8 @@ import recipes.model.RecipeModel;
 import recipes.repository.RecipeRepository;
 import recipes.service.mapper.RecipeMapper;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -35,5 +37,30 @@ public class RecipeService {
             throw new RecipeNotFoundException(id);
         }
         recipeRepository.deleteById(id);
+    }
+
+    public void updateRecipe(Long id, RecipeModel recipe) {
+        if (!recipeRepository.existsById(id)) {
+            throw new RecipeNotFoundException(id);
+        }
+        var entity = recipeMapper.toEntity(recipe);
+        entity.setId(id);
+        recipeRepository.save(entity);
+    }
+
+    public List<RecipeModel> search(String name, String category) {
+        if ( (name == null && category == null ) || (name != null && category != null) ) {
+            throw new IllegalArgumentException("One search parameter is required");
+        }
+        if (name != null) {
+            return recipeRepository.findByNameIgnoreCaseContainingOrderByDateDesc(name)
+                    .stream()
+                    .map(recipeMapper::toModel)
+                    .toList();
+        }
+        return recipeRepository.findByCategoryIgnoreCaseOrderByDateDesc(category)
+                .stream()
+                .map(recipeMapper::toModel)
+                .toList();
     }
 }
