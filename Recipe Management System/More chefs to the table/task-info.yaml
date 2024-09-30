@@ -12,6 +12,33 @@ files:
   - name: test/RecipesApplicationTest.java
     visible: false
     learner_created: false
+  - name: src/recipes/exception/RecipeNotFoundException.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/controller/RecipeController.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/service/RecipeService.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/repository/RecipeRepository.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/model/IdModel.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/entity/Recipe.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/service/mapper/RecipeMapper.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/model/RecipeModel.java
+    visible: true
+    learner_created: true
+  - name: src/resources/logback.xml
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/13092#comment
 status: Unchecked
 record: -1
