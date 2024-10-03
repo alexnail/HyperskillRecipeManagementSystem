@@ -39,6 +39,27 @@ files:
   - name: src/resources/logback.xml
     visible: true
     learner_created: true
+  - name: src/recipes/controller/RegisterController.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/model/RegisterModel.java
+    visible: true
+    learner_created: true
+  - name: test/recipes/controller/RegisterControllerTest.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/service/UserService.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/repository/UserRepository.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/entity/User.java
+    visible: true
+    learner_created: true
+  - name: src/recipes/SecurityConfig.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/13092#comment
 status: Unchecked
 record: -1
