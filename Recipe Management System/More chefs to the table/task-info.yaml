@@ -45,7 +45,7 @@ files:
   - name: src/recipes/model/RegisterModel.java
     visible: true
     learner_created: true
-  - name: test/recipes/controller/RegisterControllerTest.java
+  - name: test/recipes/controller/RegisterControllerMockTest.java
     visible: true
     learner_created: true
   - name: src/recipes/service/UserService.java
@@ -58,6 +58,9 @@ files:
     visible: true
     learner_created: true
   - name: src/recipes/SecurityConfig.java
+    visible: true
+    learner_created: true
+  - name: test/recipes/controller/RecipeControllerMockTest.java
     visible: true
     learner_created: true
 feedback_link: https://hyperskill.org/learn/step/13092#comment
