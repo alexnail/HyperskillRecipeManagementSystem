@@ -75,6 +75,9 @@ files:
   - name: test/recipes/controller/RecipeControllerTest.java
     visible: true
     learner_created: true
+  - name: src/recipes/exception/NotAnAuthorException.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/13092#comment
 status: Unchecked
 record: -1

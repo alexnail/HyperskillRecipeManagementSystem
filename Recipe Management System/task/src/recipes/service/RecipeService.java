@@ -2,8 +2,10 @@ package recipes.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import recipes.entity.Recipe;
+import recipes.exception.NotAnAuthorException;
 import recipes.exception.RecipeNotFoundException;
 import recipes.model.IdModel;
 import recipes.model.RecipeModel;
@@ -22,7 +24,9 @@ public class RecipeService {
 
     public IdModel addRecipe(RecipeModel recipe) {
         log.debug("Adding recipe: {}", recipe);
-        Recipe saved = recipeRepository.save(recipeMapper.toEntity(recipe));
+        Recipe saved = recipeRepository.save(
+                recipeMapper.toEntity(recipe,
+                SecurityContextHolder.getContext().getAuthentication().getName()));
         return new IdModel(saved.getId());
     }
 
@@ -36,6 +40,10 @@ public class RecipeService {
         if (!recipeRepository.existsById(id)) {
             throw new RecipeNotFoundException(id);
         }
+        if (!recipeRepository.findById(id).get().getAuthor()
+                .equals(SecurityContextHolder.getContext().getAuthentication().getName())) {
+            throw new NotAnAuthorException();
+        }
         recipeRepository.deleteById(id);
     }
 
@@ -43,7 +51,11 @@ public class RecipeService {
         if (!recipeRepository.existsById(id)) {
             throw new RecipeNotFoundException(id);
         }
-        var entity = recipeMapper.toEntity(recipe);
+        var currentUser = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!recipeRepository.findById(id).get().getAuthor().equals(currentUser)) {
+            throw new NotAnAuthorException();
+        }
+        var entity = recipeMapper.toEntity(recipe, currentUser);
         entity.setId(id);
         recipeRepository.save(entity);
     }

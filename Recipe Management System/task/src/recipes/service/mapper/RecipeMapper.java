@@ -6,7 +6,7 @@ import recipes.model.RecipeModel;
 
 @Component
 public class RecipeMapper {
-    public Recipe toEntity(RecipeModel recipe) {
+    public Recipe toEntity(RecipeModel recipe, String author) {
         Recipe entity = new Recipe();
         entity.setName(recipe.getName());
         entity.setDescription(recipe.getDescription());
@@ -14,6 +14,7 @@ public class RecipeMapper {
         //entity.setDate(recipe.getDate());
         entity.setIngredients(recipe.getIngredients());
         entity.setDirections(recipe.getDirections());
+        entity.setAuthor(author);
         return entity;
     }
 

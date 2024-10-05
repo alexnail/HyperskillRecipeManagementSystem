@@ -10,6 +10,7 @@ import org.hibernate.validator.constraints.Length;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ToString
 public class RegisterModel {
 
     @NotBlank
@@ -18,6 +19,6 @@ public class RegisterModel {
     private String email;
 
     @NotBlank
-    @Length(min = 5)
+    @Length(min = 8)
     private String password;
 }

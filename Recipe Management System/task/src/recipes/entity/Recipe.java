@@ -35,4 +35,6 @@ public class Recipe {
     @ElementCollection(fetch = FetchType.EAGER)
     @Fetch(value = FetchMode.SUBSELECT)
     private List<String> directions;
+
+    private String author;
 }

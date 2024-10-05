@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import recipes.exception.NotAnAuthorException;
 import recipes.exception.RecipeNotFoundException;
 import recipes.model.IdModel;
 import recipes.model.RecipeModel;
@@ -55,5 +56,10 @@ public class RecipeController {
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity illegalArgumentException() {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(NotAnAuthorException.class)
+    public ResponseEntity notAnAuthorException() {
+        return new ResponseEntity<>(HttpStatus.FORBIDDEN);
     }
 }

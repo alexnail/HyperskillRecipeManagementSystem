@@ -25,6 +25,7 @@ public class SecurityConfig {
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/actuator/shutdown").permitAll()
                         .requestMatchers( "/h2-console/**").permitAll()
                         .anyRequest().authenticated()
                 );
