@@ -1,14 +1,16 @@
 package recipes.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import recipes.repository.UserRepository;
 import recipes.entity.User;
+import recipes.repository.UserRepository;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class UserService {
 
     private final PasswordEncoder passwordEncoder;
@@ -19,7 +21,9 @@ public class UserService {
     }
 
     public void register(String email, String password) {
-        if (repository.findByUsername(email) != null) {
+        var exists = repository.findByUsername(email);
+        if (exists != null) {
+            log.debug("User with email {} already exists.\n{}", email, exists);
             throw new IllegalArgumentException("User already exists");
         }
         var user = User.builder()

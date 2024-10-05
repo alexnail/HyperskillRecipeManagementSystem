@@ -21,9 +21,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
+                .headers(headers -> headers.frameOptions().disable())
                 .httpBasic(Customizer.withDefaults())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.POST, "/api/register").permitAll()
+                        .requestMatchers( "/h2-console/**").permitAll()
                         .anyRequest().authenticated()
                 );
         return http.build();

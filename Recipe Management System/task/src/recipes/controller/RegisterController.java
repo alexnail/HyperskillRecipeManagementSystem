@@ -2,10 +2,9 @@ package recipes.controller;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import recipes.model.RegisterModel;
 import recipes.service.UserService;
 
@@ -19,5 +18,10 @@ public class RegisterController {
     @PostMapping
     public void register(@RequestBody @Valid RegisterModel registerModel) {
         userService.register(registerModel.getEmail(), registerModel.getPassword());
+    }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity illegalArgumentException(IllegalArgumentException e) {
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
