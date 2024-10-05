@@ -72,6 +72,9 @@ files:
   - name: src/recipes/service/mapper/UserDetailsAdapter.java
     visible: true
     learner_created: true
+  - name: test/recipes/controller/RecipeControllerTest.java
+    visible: true
+    learner_created: true
 feedback_link: https://hyperskill.org/learn/step/13092#comment
 status: Unchecked
 record: -1

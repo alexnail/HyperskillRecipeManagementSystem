@@ -24,8 +24,10 @@ public class UserService implements UserDetailsService {
         var user = repository.findByUsername(email);
         if (user == null) {
             throw new UsernameNotFoundException("User not found");
+        } else {
+            log.debug("User found: {}", user);
+            return new UserDetailsAdapter(user);
         }
-        return new UserDetailsAdapter(user);
     }
 
     public void register(String email, String password) {
@@ -38,6 +40,7 @@ public class UserService implements UserDetailsService {
                 .username(email)
                 .password(passwordEncoder.encode(password))
                 .build();
-        repository.save(user);
+        var saved = repository.save(user);
+        log.debug("User saved: {}", saved);
     }
 }
